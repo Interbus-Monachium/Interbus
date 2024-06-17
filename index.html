@@ -1,82 +1,46 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>Kalendarz przewozów</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/fullcalendar.min.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/fullcalendar.min.css" rel="stylesheet">
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalendarz Przewozów</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-  <div id="loginContainer">
-    <h2>Logowanie</h2>
-    <form id="loginForm">
-      <label for="password">Hasło:</label>
-      <input type="password" id="password" name="password" required><br><br>
-      <button type="submit">Zaloguj</button>
-    </form>
-  </div>
-  <div id="content" style="display: none;">
     <header>
-      <h1>Kalendarz przewozów</h1>
+        <h1>Kalendarz Przewozów</h1>
+        <div class="flags">
+            <img src="flag_pl.png" alt="Flaga Polski" onclick="showCalendar('pl')">
+            <img src="flag_de.png" alt="Flaga Niemiec" onclick="showCalendar('de')">
+        </div>
     </header>
-
+    
     <main>
-      <section id="calendarSection">
-        <h2>Kalendarz</h2>
-        <div id="calendar"></div>
-      </section>
+        <div id="calendar_pl" style="display: none;">
+            <h2>Kalendarz Polska</h2>
+            <div id="calendar_pl_content">
+                <!-- Tutaj będzie kalendarz dla Polski -->
+            </div>
+        </div>
+        <div id="calendar_de" style="display: none;">
+            <h2>Kalendarz Niemcy</h2>
+            <div id="calendar_de_content">
+                <!-- Tutaj będzie kalendarz dla Niemiec -->
+            </div>
+        </div>
 
-      <section id="formSection" style="display: none;">
-        <h2>Dodaj pasażera</h2>
-        <form id="passengerForm">
-          <input type="hidden" id="selectedDate" name="selectedDate">
-          <label for="route">Trasa:</label>
-          <select id="route" name="route" required>
-            <option value="Polska-Niemcy">Polska-Niemcy</option>
-            <option value="Niemcy-Polska">Niemcy-Polska</option>
-          </select><br><br>
-
-          <label for="firstName">Imię:</label>
-          <input type="text" id="firstName" name="firstName" required><br><br>
-
-          <label for="lastName">Nazwisko:</label>
-          <input type="text" id="lastName" name="lastName" required><br><br>
-
-          <label for="phoneNumber">Numer telefonu:</label>
-          <input type="text" id="phoneNumber" name="phoneNumber" required><br><br>
-
-          <label for="departure">Miejsce wyjazdu:</label>
-          <input type="text" id="departure" name="departure" required><br><br>
-
-          <label for="destination">Miejsce dojazdu:</label>
-          <input type="text" id="destination" name="destination" required><br><br>
-
-          <label for="price">Cena:</label>
-          <input type="text" id="price" name="price" required><br><br>
-
-          <label for="notes">Uwagi:</label>
-          <textarea id="notes" name="notes"></textarea><br><br>
-
-          <button type="submit">Dodaj pasażera</button>
-        </form>
-      </section>
-
-      <section id="passengerListSection" style="display: none;">
-        <h2>Lista pasażerów na <span id="passengerListDate"></span></h2>
-        <h3>Polska-Niemcy</h3>
-        <ul id="pl-de-list"></ul>
-        <h3>Niemcy-Polska</h3>
-        <ul id="de-pl-list"></ul>
-      </section>
+        <div id="passenger-list">
+            <h2>Lista Pasażerów</h2>
+            <div id="passenger-list-content">
+                <!-- Tutaj będzie lista pasażerów -->
+            </div>
+        </div>
     </main>
 
     <footer>
-      <p>&copy; 2024 Twoja Firma</p>
+        <p>&copy; 2024 Przewozy XYZ</p>
     </footer>
-  </div>
 </body>
 </html>
+
