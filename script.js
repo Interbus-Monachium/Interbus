@@ -1,89 +1,32 @@
-document.addEventListener('DOMContentLoaded', function() {
-  var password = "twojehaslo"; // Zmień na wybrane przez Ciebie hasło
+// Funkcja pokazująca kalendarz dla wybranej flagi
+function showCalendar(country) {
+    // Ukrycie wszystkich kalendarzy
+    document.getElementById('calendar_pl').style.display = 'none';
+    document.getElementById('calendar_de').style.display = 'none';
 
-  document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    var enteredPassword = document.getElementById('password').value;
-    if (enteredPassword === password) {
-      document.getElementById('loginContainer').style.display = 'none';
-      document.getElementById('content').style.display = 'block';
-    } else {
-      alert('Nieprawidłowe hasło!');
+    // Wyświetlenie odpowiedniego kalendarza na podstawie wybranej flagi
+    if (country === 'pl') {
+        document.getElementById('calendar_pl').style.display = 'block';
+        loadCalendarData('pl'); // Przykładowe ładowanie danych kalendarza dla Polski
+    } else if (country === 'de') {
+        document.getElementById('calendar_de').style.display = 'block';
+        loadCalendarData('de'); // Przykładowe ładowanie danych kalendarza dla Niemiec
     }
-  });
-
-  var calendarEl = document.getElementById('calendar');
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    locale: 'pl',
-    dateClick: function(info) {
-      document.getElementById('selectedDate').value = info.dateStr;
-      document.getElementById('passengerListDate').innerText = info.dateStr;
-      document.getElementById('formSection').style.display = 'block';
-      document.getElementById('passengerListSection').style.display = 'block';
-      loadPassengers(info.dateStr);
-    }
-  });
-  calendar.render();
-
-  document.getElementById('passengerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    var date = document.getElementById('selectedDate').value;
-    var route = document.getElementById('route').value;
-    var firstName = document.getElementById('firstName').value;
-    var lastName = document.getElementById('lastName').value;
-    var phoneNumber = document.getElementById('phoneNumber').value;
-    var departure = document.getElementById('departure').value;
-    var destination = document.getElementById('destination').value;
-    var price = document.getElementById('price').value;
-    var notes = document.getElementById('notes').value;
-
-    var passenger = {
-      route: route,
-      firstName: firstName,
-      lastName: lastName,
-      phoneNumber: phoneNumber,
-      departure: departure,
-      destination: destination,
-      price: price,
-      notes: notes
-    };
-
-    savePassenger(date, passenger);
-    loadPassengers(date);
-    document.getElementById('passengerForm').reset();
-  });
-});
-
-function savePassenger(date, passenger) {
-  var passengers = JSON.parse(localStorage.getItem(date)) || [];
-  passengers.push(passenger);
-  localStorage.setItem(date, JSON.stringify(passengers));
 }
 
-function loadPassengers(date) {
-  var passengers = JSON.parse(localStorage.getItem(date)) || [];
-  var plDeList = document.getElementById('pl-de-list');
-  var dePlList = document.getElementById('de-pl-list');
-  plDeList.innerHTML = '';
-  dePlList.innerHTML = '';
-  passengers.forEach(function(passenger, index) {
-    var li = document.createElement('li');
-    li.innerHTML = `
-      ${passenger.firstName} ${passenger.lastName} - ${passenger.phoneNumber} - ${passenger.departure} do ${passenger.destination} - ${passenger.price} zł
-      <button onclick="deletePassenger('${date}', ${index})">Usuń</button>
-    `;
-    if (passenger.route === 'Polska-Niemcy') {
-      plDeList.appendChild(li);
-    } else {
-      dePlList.appendChild(li);
-    }
-  });
+// Funkcja ładowania danych kalendarza
+function loadCalendarData(country) {
+    // Pobierz dane kalendarza z serwera lub innej bazy danych
+    // Przykładowa implementacja dla pobrania danych kalendarza
+    // Możesz dostosować tę funkcję do swoich potrzeb
+    // Na potrzeby przykładu, ta funkcja jest pusta
 }
 
-function deletePassenger(date, index) {
-  var passengers = JSON.parse(localStorage.getItem(date)) || [];
-  passengers.splice(index, 1);
-  localStorage.setItem(date, JSON.stringify(passengers));
-  loadPassengers(date);
+// Funkcja dodająca pasażera do listy
+function addPassenger() {
+    // Pobierz dane pasażera z formularza lub innego źródła
+    // Przykładowa implementacja dodawania pasażera
+    // Możesz dostosować tę funkcję do swoich potrzeb
+    // Na potrzeby przykładu, ta funkcja jest pusta
 }
+
